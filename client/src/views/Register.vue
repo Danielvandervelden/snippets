@@ -59,6 +59,9 @@
 				axios.post(`${this.$appConfig.base_url}/api/user/register`, {
 					...this.user
 				})
+				.then(res => {
+					console.log(res);
+				})
 			}
 		}
 	}

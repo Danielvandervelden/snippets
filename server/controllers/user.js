@@ -17,7 +17,8 @@ exports.register = (req, res) => {
 			console.log("WORKED!", res);
 		})
 		.catch(err => {
-			console.log(err);
+			res.status(404);
+			res.send('ERROR!');
 		})
 
 	res.send('Working!');
