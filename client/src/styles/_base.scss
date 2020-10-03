@@ -1,0 +1,88 @@
+@import 'mixins';
+
+/* Global styling */
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: 1.6rem;
+	line-height: 2.1rem;
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.code {
+	font-family: 'Fira Code', sans-serif;
+}
+
+figure {
+	margin: 0;
+}
+
+img {
+	max-width: 100%;
+	vertical-align: top;
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+main {
+	@include container();
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+}
+
+h1 {
+	font-size: 4.5rem;
+	line-height: 5rem;
+}
+
+h2 {
+	font-size: 3.5rem;
+	line-height: 4rem;
+}
+
+h3 {
+	font-size: 2.5rem;
+	line-height: 3rem;
+}
+
+.button {
+	display: inline-block;
+	vertical-align: top;
+	color: #FFF;
+	padding: 5px 25px;
+	border-radius: 5px;
+	transition: all .15s ease-in-out;
+	text-decoration: none;
+
+	&.--primary {
+		background-color: #84BCDA;
+
+		&:hover {
+			background-color: darken(#84BCDA, 10%);
+		}
+	}
+
+	&.--secondary {
+		background-color: #D56062;
+
+		&:hover {
+			background-color: darken(#D56062, 10%);
+		}
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.button + .button {
+		margin-left: 1.5rem;
+	}
+}
