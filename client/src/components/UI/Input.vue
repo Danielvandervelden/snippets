@@ -1,6 +1,6 @@
 <template>
 	<div v-if="name && type" :id="name" class="input-wrapper">
-		<input @blur="blurHandler($event)" :name="name" :type="type">
+		<input @input="inputHandler" @blur="blurHandler($event)" :name="name" :type="type">
 		<label v-if="label" :for="name">{{label}}</label>
 	</div>
 	<span v-else>You have to fill in a name and a type at the very least</span>
@@ -10,6 +10,9 @@
 	export default {
 		props: ['name', 'type', 'label'],
 		methods: {
+			inputHandler(e) {
+				this.$emit('input', e.target.value);
+			},
 			blurHandler(e) {
 				if(e.currentTarget.value.length > 0) {
 					e.currentTarget.classList.add('active');
@@ -25,6 +28,7 @@
 	.input-wrapper {
 		position: relative;
 		width: 100%;
+		transition: all .15s ease-in-out;
 
 		input {
 			width: 100%;

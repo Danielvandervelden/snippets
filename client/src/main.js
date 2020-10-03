@@ -15,6 +15,10 @@ import ConfigPlugin from './plugins/config';
 
 Vue.use(ConfigPlugin);
 
+/* Helpers */
+import Helpers from './plugins/helpers';
+Vue.use(Helpers);
+
 Vue.config.productionTip = false
 
 new Vue({

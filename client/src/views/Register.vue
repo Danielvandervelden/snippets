@@ -6,10 +6,10 @@
 		<h1>Registration</h1>
 		<div class="form-wrapper">
 			<form action="#" method="post">
-				<Input name="username" type="text" label="Username" />
-				<Input name="email" type="email" label="Email" />
-				<Input name="password" type="password" label="Password" />
-				<Input name="password_confirm" type="password" label="Confirm password" />
+				<Input v-model="user.username" name="username" type="text" label="Username" />
+				<Input v-model="user.email" name="email" type="email" label="Email" />
+				<Input v-model="user.password" name="password" type="password" label="Password" />
+				<Input v-model="user.password_confirm" name="password_confirm" type="password" label="Confirm password" />
 			</form>
 		</div>
 		<div class="button-wrapper">
@@ -21,9 +21,45 @@
 
 <script>
 	import Input from '@/components/UI/Input.vue';
+	import axios from 'axios';
+
 	export default {
+		data() {
+			return {
+				user: {
+					username: undefined,
+					email: undefined,
+					password: undefined,
+					password_confirm: undefined
+				}
+			}
+		},
 		components: {
 			Input
+		},
+		methods: {
+			registrationHandler(e) {
+				e.preventDefault();
+				
+				/* Check if any of the values equal to undefined */
+				if(Object.entries(this.user).some(([key, value]) => !key || value === undefined)) {
+					Object.entries(this.user).forEach(([key, value]) => {
+						if(value === undefined) this.$helpers.errorMessage(this.$helpers.parent(document.querySelector(`input[name="${key}"]`), '.input-wrapper'), 'Please fill in this value');
+					})
+					return;
+				}
+
+				/* Then check if the passwords match */
+				if(this.user.password !== this.user.password_confirm) {
+					this.$helpers.errorMessage(document.getElementById('password'), 'Please make sure the passwords match!');
+					this.$helpers.errorMessage(document.getElementById('password_confirm'), 'Please make sure the passwords match!');
+					return;
+				}
+
+				axios.post(`${this.$appConfig.base_url}/api/user/register`, {
+					...this.user
+				})
+			}
 		}
 	}
 </script>
