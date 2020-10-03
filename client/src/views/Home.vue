@@ -52,9 +52,4 @@
 			transform: translateY(0);
 		}
 	}
-
-	.button-wrapper {
-		text-align: center;
-		margin: 3rem 0;
-	}
 </style>

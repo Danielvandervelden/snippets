@@ -10,6 +10,11 @@ Vue.use(VueRouter);
 /* Store */
 import { store } from './store/store';
 
+/* App config */
+import ConfigPlugin from './plugins/config';
+
+Vue.use(ConfigPlugin);
+
 Vue.config.productionTip = false
 
 new Vue({
