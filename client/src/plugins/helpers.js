@@ -4,28 +4,30 @@ const helpers = {
 	 * @param {El} element This element will be the element on which the error message should be appended to.
 	 * @param {String} message The message that should be appended
 	 */
-	errorMessage(element, message) {
-		const error = document.createElement('span');
-		error.classList.add("error-message");
-		message ? error.innerText = message : "You didn't fill in an error message";
+	message(element, message, type = 'error', fadeOut = true) {
+		const el = document.createElement('span');
+		el.classList.add(`${type}-message`);
+		message ? el.innerText = message : "You didn't fill in a message";
 
-		element.appendChild(error);
+		element.appendChild(el);
 
-		setTimeout(() => {
-			const fadeEffect = setInterval(() => {
-				if(!error.style.opacity) {
-					error.style.opacity = 1;
-				}
-	
-				if(error.style.opacity > 0) {
-					error.style.opacity -= .1;
-				} else {
-					element.removeChild(error);
-					clearInterval(fadeEffect);
-				}
-	
-			}, 100)
-		}, 2000)
+		if(fadeOut) {
+			setTimeout(() => {
+				const fadeEffect = setInterval(() => {
+					if(!el.style.opacity) {
+						el.style.opacity = 1;
+					}
+		
+					if(el.style.opacity > 0) {
+						el.style.opacity -= .1;
+					} else {
+						element.removeChild(el);
+						clearInterval(fadeEffect);
+					}
+		
+				}, 100)
+			}, 2000)
+		}
 	},
 	
 	/**

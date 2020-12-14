@@ -15,6 +15,10 @@ import ConfigPlugin from './plugins/config';
 
 Vue.use(ConfigPlugin);
 
+/* Axios */
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 /* Helpers */
 import Helpers from './plugins/helpers';
 Vue.use(Helpers);

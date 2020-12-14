@@ -5,6 +5,7 @@ import Home from '../views/Home.vue';
 import User from '../views/User.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
+import { store } from '../store/store';
 
 export const router = new VueRouter({
 	routes: [
@@ -27,3 +28,8 @@ export const router = new VueRouter({
 	],
 	mode: 'history'
 });
+
+router.beforeEach((to, from ,next) => {
+	store.dispatch('auth');
+	next();
+})

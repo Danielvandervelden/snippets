@@ -44,15 +44,15 @@
 				/* Check if any of the values equal to undefined */
 				if(Object.entries(this.user).some(([key, value]) => !key || value === undefined)) {
 					Object.entries(this.user).forEach(([key, value]) => {
-						if(value === undefined) this.$helpers.errorMessage(this.$helpers.parent(document.querySelector(`input[name="${key}"]`), '.input-wrapper'), 'Please fill in this value');
+						if(value === undefined) this.$helpers.message(this.$helpers.parent(document.querySelector(`input[name="${key}"]`), '.input-wrapper'), 'Please fill in this value');
 					})
 					return;
 				}
 
 				/* Then check if the passwords match */
 				if(this.user.password !== this.user.password_confirm) {
-					this.$helpers.errorMessage(document.getElementById('password'), 'Please make sure the passwords match!');
-					this.$helpers.errorMessage(document.getElementById('password_confirm'), 'Please make sure the passwords match!');
+					this.$helpers.message(document.getElementById('password'), 'Please make sure the passwords match!');
+					this.$helpers.message(document.getElementById('password_confirm'), 'Please make sure the passwords match!');
 					return;
 				}
 
@@ -60,7 +60,16 @@
 					...this.user
 				})
 				.then(res => {
-					console.log(res);
+					this.$helpers.message(document.querySelector('.form-wrapper'), res.data.message, 'success', false);
+				})
+				.catch(err => {
+					if(err.response.data.code === "duplicate_username") {
+						this.$helpers.message(document.getElementById('username'), "This username already exists, please try a different one.");
+					}
+
+					if(err.response.data.code === "duplicate_email") {
+						this.$helpers.message(document.getElementById('email'), "This email already belongs to a user, please use a different one or request a password reset.");
+					}
 				})
 			}
 		}
