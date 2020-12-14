@@ -118,7 +118,9 @@ exports.login = async (req, res) => {
 
 		return res.status(200).send({
 			code: 200,
-			message: "Gothu fam, logging you in..."
+			message: "Gothu fam, logging you in...",
+			username: fetchedUser.username,
+			email: fetchedUser.email
 		});
 	} else {
 		return res.status(500).send({

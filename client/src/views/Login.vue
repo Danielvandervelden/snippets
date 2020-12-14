@@ -19,7 +19,6 @@
 
 <script>
 	import Input from '@/components/UI/Input.vue';
-	import axios from 'axios';
 
 	export default {
 		components: {
@@ -34,16 +33,13 @@
 		methods: {
 			async loginHandler(e) {
 				e.preventDefault();
-				if(this.user && this.password) {
-					try {
-						const user = await axios.post(`${this.$appConfig.base_url}/api/user/login`, { username: this.user, password: this.password })
-						this.$helpers.message(document.querySelector('.form-wrapper'), user.data.message, 'success')
-						console.log(user);
-					} catch(err) {
-						this.$helpers.message(document.querySelector('.form-wrapper'), err.response.data.message)
-					}
-				} else {
-					this.$helpers.message(document.querySelector('.form-wrapper'), 'Please fill in all the fields.')
+				if(!this.user || !this.password) {
+					this.helpers.message(document.querySelector('.form-wrapper'), 'Please fill in all the fields.')
+				}
+
+				const response = await this.$store.dispatch('loginHandler', {user: this.user, pass: this.password});
+				if(response.code === 200) {
+					this.$store.commit('setUser', { username: response.username, email: response.email })
 				}
 			}
 		}

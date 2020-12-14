@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import UserStore from './modules/UserStore';
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-	state: {
-		value: 'test'
-	},
-	getters: {},
-	mutations: {},
-	actions: {}
+	modules: {
+		user: UserStore
+	}
 })
