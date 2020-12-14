@@ -74,6 +74,8 @@ exports.login = async (req, res) => {
 		...req.body
 	}
 
+	console.log(user);
+
 	/* Should not be happening, but if, for whatever reason, we don't get the info we need... */
 	if(!user.username || !user.password) {
 		return res.status(500).send({
@@ -112,6 +114,8 @@ exports.login = async (req, res) => {
 	const match = await bcrypt.compare(user.password, fetchedUser.password);
 
 	if(match) {
+		req.session.email = req.body.username;
+
 		return res.status(200).send({
 			code: 200,
 			message: "Gothu fam, logging you in..."
@@ -122,10 +126,4 @@ exports.login = async (req, res) => {
 			code: "user_not_found"
 		});
 	}
-}
-
-exports.auth = async (req, res) => {
-	console.log(req);
-
-	res.send(200);
 }
