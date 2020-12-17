@@ -4,23 +4,15 @@ const {
 } = require('sequelize');
 const db = require('../database/db');
 
-const Snippet = db.define("Snippet", {
+const Category = db.define("Category", {
 	user_id: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
-	category: {
-		type: DataTypes.STRING,
-		allowNull: false
-	},
-	content: {
-		type: DataTypes.STRING,
-		allowNull: false
-	},
-	date: {
+	name: {
 		type: DataTypes.STRING,
 		allowNull: false
 	}
 })
 
-module.exports = Snippet;
+module.exports = Category;

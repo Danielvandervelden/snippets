@@ -22,8 +22,11 @@ db.sync()
 /* Relations */
 const User = require('./models/user');
 const Snippet = require('./models/snippet');
+const Category = require('./models/category');
 
+User.hasMany(Category);
 User.hasMany(Snippet);
+Category.hasMany(Snippet);
 
 /* Instances */
 const app = express();
@@ -37,7 +40,12 @@ app.use(session({
 	secret: 'f3829fj3j21j892p3fh(P#J*(J*(F',
 	store: seqStore,
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	name: 'snippet_session',
+	cookie: {
+		maxAge: 24 * 60 * 60 * 1000,
+		
+	}
 }))
 
 app.use(urlencoded({

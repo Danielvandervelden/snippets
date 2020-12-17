@@ -5,7 +5,11 @@ const UserState = {
 		user: null,
 		user_email: null
 	}),
-	getters: {},
+	getters: {
+		getUser: state => {
+			return state.user;
+		}
+	},
 	mutations: {
 		setUser(state, userObject) {
 			state.user = userObject.username;
@@ -15,8 +19,16 @@ const UserState = {
 	actions: {
 		async loginHandler(commit, user) {
 			try {
-				const fetchedUser = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/login`, { username: user.user, password: user.pass })					
+				const fetchedUser = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/login`, { username: user.user, password: user.pass })
 				return fetchedUser.data;
+			} catch(err) {
+				return err.response;
+			}
+		},
+		async auth() {
+			try {
+				const response = await axios.get(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/auth`)
+				return response;
 			} catch(err) {
 				return err.response;
 			}

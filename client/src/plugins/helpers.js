@@ -47,10 +47,10 @@ const helpers = {
 		} else if(/^#/.test(target)) {
 			selectorType = 'id'
 		}
-
+		
 		function checkParent(el, selector) {
 			if(selector === 'class') {
-				if(el.classList.contains(target.replace('.', ''))) return el;
+				if(el && el.classList && el.classList.contains(target.replace('.', ''))) return el;
 				if(el.parentNode) return checkParent(el.parentNode, selector);
 				return false;
 			} else if(selector === 'id') {

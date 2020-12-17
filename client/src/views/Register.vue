@@ -59,8 +59,15 @@
 				axios.post(`${this.$appConfig.base_url}/api/user/register`, {
 					...this.user
 				})
-				.then(res => {
-					this.$helpers.message(document.querySelector('.form-wrapper'), res.data.message, 'success', false);
+				.then(() => {					
+					this.$store.dispatch('loginHandler', { user: this.user.username, pass: this.user.password })
+					.then(response => {
+						this.$store.commit('setUser', { username: response.username, email: response.email });
+						this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
+						setTimeout(() => {
+							this.$router.push(`/${this.$store.getters['getUser']}`);
+						}, 1000)
+					})
 				})
 				.catch(err => {
 					if(err.response.data.code === "duplicate_username") {

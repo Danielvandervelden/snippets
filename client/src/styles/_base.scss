@@ -1,3 +1,4 @@
+@import 'variables';
 @import 'mixins';
 
 /* Global styling */
@@ -100,4 +101,49 @@ h3 {
 .success-message {
 	font-size: 1.2rem;
 	color: green;
+}
+
+/* Standard popup styling */
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0;
+	z-index: -10;
+	visibility: hidden;
+	pointer-events: none;
+	transition: all .3s ease-in-out;
+
+	&:before {
+		content: '';
+		display: block;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, .7);
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	&-wrapper {
+		background-color: #FFF;
+		border-radius: 10px;
+		padding: 20px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 60vw;
+		max-width: 600px;
+		min-width: 300px;
+	}
+
+	&.popup-active {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		z-index: 10;
+	}
 }

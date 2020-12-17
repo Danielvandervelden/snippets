@@ -1,0 +1,157 @@
+<template>
+	<div id="add-button-wrapper">
+		<a @click="addButtonPopupHandler" id="add-button" href="#" title="Add a new snippet or category">
+			<span>+</span>
+		</a>
+
+		<div id="add-button-popup">
+			<ul>
+				<li>
+					<Popup @clicked="closeAddButton" name="new_category" label="New category" title="Add a new category">
+						<NewCategory />
+					</Popup>
+				</li>
+				<li>
+					<Popup @clicked="closeAddButton" name="new_snippet" label="New snippet" title="Add a new snippet">
+						<NewSnippet />
+					</Popup>
+				</li>
+			</ul>
+		</div>
+		</div>
+</template>
+
+<script>
+import Popup from '@/components/UI/Popup.vue';
+import NewCategory from '@/components/forms/NewCategory.vue';
+import NewSnippet from '@/components/forms/NewSnippet.vue';
+
+	export default {
+		data() {
+			return {
+				popupOpen: false
+			}
+		},
+		components: {
+			NewCategory,
+			NewSnippet,
+			Popup
+		},
+		methods: {
+			closeAddButton() {
+				this.popupOpen = false;
+				this.$el.classList.remove('active');
+			},
+			addButtonPopupHandler(e) {
+				if(e) {
+					e.preventDefault();
+				}
+				if(!this.popupOpen) {
+					this.popupOpen = true;
+					this.$el.classList.add('active');
+				} else {
+					this.popupOpen = false;
+					this.$el.classList.remove('active');
+				}
+			}
+		}
+	}
+</script>
+
+<style lang='scss' scoped>
+	#add-button-wrapper {
+		position: fixed;
+		bottom: 30px;
+		right: 30px;
+	}
+
+	#add-button {
+		color: $green;
+		background-color: $blue;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		transition: all .3s ease-in-out;
+
+		span {
+			font-size: 50px;
+			font-weight: 700;
+		}
+
+		.active & {
+			transform: rotate(135deg);
+			background-color: $brown;
+			color: $red;
+		}
+	}
+
+	#add-button-popup {
+		opacity: 0;
+		pointer-events: none;
+		visibility: hidden;
+		position: absolute; 
+		right: -100%;
+		bottom: 0;
+		transform: scale(0);
+		transition: all .3s ease-in-out;
+		background-color: $blue;
+		color: #FFF;
+		border-radius: 10px;
+
+		&:before {
+			content: '';
+			display: block;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 0 30px 30px 0;
+			border-color: transparent $blue transparent transparent;
+			position: absolute;
+			top: calc(100%);
+			right: 10px;
+		}
+
+		/deep/ ul {
+			list-style: none;
+			padding: 10px;	
+			margin: 0;
+
+			li {
+				transition: all .15s ease-in-out;
+				
+				&:first-of-type {
+					border-radius: 10px 10px 0 0;
+				}
+				
+				&:last-of-type {
+					border-radius: 0 0 10px 10px;
+				}
+			}
+
+			a {
+				padding: 10px;
+				display: block;
+				white-space: nowrap;
+				color: #FFF;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		.active & {
+			opacity: 1;
+			pointer-events: auto;
+			visibility: visible;
+			right: 60%;
+			bottom: calc(100% + 40px);
+			transform: scale(1);
+		}
+	}
+</style>

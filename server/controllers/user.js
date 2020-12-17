@@ -61,7 +61,6 @@ exports.register = async (req, res) => {
 			})
 		})
 		.catch(err => {
-			console.log(err);
 			return res.status(500).send({
 				message: "Something went wrong on the server, please try again later",
 				code: "server_error"
@@ -73,8 +72,6 @@ exports.login = async (req, res) => {
 	const user = {
 		...req.body
 	}
-
-	console.log(user);
 
 	/* Should not be happening, but if, for whatever reason, we don't get the info we need... */
 	if(!user.username || !user.password) {
@@ -114,7 +111,8 @@ exports.login = async (req, res) => {
 	const match = await bcrypt.compare(user.password, fetchedUser.password);
 
 	if(match) {
-		req.session.email = req.body.username;
+		req.session.email = fetchedUser.email;
+		req.session.user = fetchedUser.username;
 
 		return res.status(200).send({
 			code: 200,
@@ -123,9 +121,26 @@ exports.login = async (req, res) => {
 			email: fetchedUser.email
 		});
 	} else {
-		return res.status(500).send({
+		req.session.destroy();
+		return res.status(401).send({
 			message: "User/password combination is not correct.",
 			code: "user_not_found"
 		});
+	}
+}
+
+exports.auth = async (req, res) => {
+	if(req.session.user) {
+		res.status(200).send({
+			code: 200,
+			message: "Succesfully authorized",
+			user: req.session.user,
+			email: req.session.email
+		})
+	} else {
+		res.status(200).send({
+			code: 401,
+			message: "Not logged in"
+		})
 	}
 }

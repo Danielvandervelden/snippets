@@ -34,12 +34,16 @@
 			async loginHandler(e) {
 				e.preventDefault();
 				if(!this.user || !this.password) {
-					this.helpers.message(document.querySelector('.form-wrapper'), 'Please fill in all the fields.')
+					this.$helpers.message(document.querySelector('.form-wrapper'), 'Please fill in all the fields.')
 				}
 
 				const response = await this.$store.dispatch('loginHandler', {user: this.user, pass: this.password});
 				if(response.code === 200) {
-					this.$store.commit('setUser', { username: response.username, email: response.email })
+					this.$store.commit('setUser', { username: response.username, email: response.email });
+					this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
+					setTimeout(() => {
+						this.$router.push(`/${this.$store.getters['getUser']}`);
+					}, 1000)
 				}
 			}
 		}
