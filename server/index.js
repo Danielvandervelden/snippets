@@ -26,7 +26,9 @@ const Category = require('./models/category');
 
 User.hasMany(Category);
 User.hasMany(Snippet);
+Category.belongsTo(User);
 Category.hasMany(Snippet);
+Snippet.belongsTo(Category);
 
 /* Instances */
 const app = express();

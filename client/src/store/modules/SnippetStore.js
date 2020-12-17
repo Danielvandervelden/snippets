@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 const SnippetStore = {
 	state: () => ({
@@ -19,7 +19,11 @@ const SnippetStore = {
 	},
 	actions: {
 		async addCategoryHandler(commit, categoryName) {
-			console.log(categoryName);
+			const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/add/category`, {
+				category: categoryName
+			});
+
+			console.log(response);
 		}
 	}
 }
