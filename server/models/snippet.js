@@ -12,6 +12,11 @@ const Snippet = db.define("snippet", {
 	date: {
 		type: DataTypes.STRING,
 		allowNull: false
+	},
+	copied: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		defaultValue: 0
 	}
 }, {underscored: true})
 

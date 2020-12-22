@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const SnippetStore = {
 	state: () => ({
-		categories: [{ label: 'test', url: '/test', id: '1' }],
+		categories: [],
 		snippets: []
 	}),
 	getters: {
