@@ -5,8 +5,7 @@ import {
 
 /* Views */
 import Home from '../views/Home.vue';
-import User from '../views/User/User.vue';
-import UserCategory from '../views/User/UserCategory.vue';
+import User from '../views/User.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 
@@ -25,11 +24,11 @@ export const router = new VueRouter({
 		},
 		{
 			path: '/:user',
-			component: User,
+			component: User
 		},
 		{
 			path: '/:user/:category',
-			component: UserCategory
+			component: User
 		}
 	],
 	mode: 'history'

@@ -6,7 +6,7 @@
 				<span>Categories</span>
 				<ul>
 					<li v-for="(cat, index) in getCategories" :key="`category_${index}`">
-						<router-link :to="`${getUser}/${cat.url}`">{{cat.label}}</router-link>
+						<router-link :to="`/${getUser}/${cat.url}`">{{cat.label}}</router-link>
 					</li>
 				</ul>
 			</li>	

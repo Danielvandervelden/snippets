@@ -1,6 +1,6 @@
 <template>
 	<div>
-		User category!
+		Dashboard for user category page
 	</div>
 </template>
 
