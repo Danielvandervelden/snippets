@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 const db = require('../database/db');
 
-const User = db.define("User", {
+const User = db.define("user", {
 	username: {
 		type: DataTypes.STRING,
 		allowNull: false
@@ -17,6 +17,6 @@ const User = db.define("User", {
 		type: DataTypes.STRING,
 		allowNull: false
 	}
-})
+}, {underscored: true})
 
 module.exports = User;

@@ -24,11 +24,26 @@ const User = require('./models/user');
 const Snippet = require('./models/snippet');
 const Category = require('./models/category');
 
-User.hasMany(Category);
-User.hasMany(Snippet);
-Category.belongsTo(User);
-Category.hasMany(Snippet);
-Snippet.belongsTo(Category);
+User.hasMany(Category, {
+	foreignKey: 'user_id',
+	as: 'Categories'
+});
+User.hasMany(Snippet, {
+	foreignKey: 'user_id',
+	as: 'Snippets'
+});
+Category.belongsTo(User, {
+	foreignKey: 'user_id',
+	as: 'User'
+});
+Category.hasMany(Snippet, {
+	foreignKey: 'category_id',
+	as: 'Snippets'
+});
+Snippet.belongsTo(Category, {
+	foreignKey: 'category_id',
+	as: 'Category'
+});
 
 /* Instances */
 const app = express();

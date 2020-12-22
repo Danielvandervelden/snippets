@@ -19,6 +19,10 @@ import Input from '@/components/UI/Input.vue';
 		methods: {
 			addCategoryHandler() {
 				this.$store.dispatch('addCategoryHandler', this.category_name);
+
+				if(this.$parent.triggerPopup) {
+					this.$parent.triggerPopup();
+				}
 			}
 		}
 	}

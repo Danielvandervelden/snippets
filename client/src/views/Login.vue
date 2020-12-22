@@ -40,11 +40,16 @@
 				const response = await this.$store.dispatch('loginHandler', {user: this.user, pass: this.password});
 				if(response.code === 200) {
 					this.$store.commit('setUser', { username: response.username, email: response.email });
+					this.fetchCategories();
 					this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
 					setTimeout(() => {
 						this.$router.push(`/${this.$store.getters['getUser']}`);
 					}, 1000)
 				}
+			},
+			
+			async fetchCategories() {
+				this.$store.dispatch('fetchCategories');
 			}
 		}
 	}

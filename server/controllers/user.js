@@ -113,12 +113,14 @@ exports.login = async (req, res) => {
 	if(match) {
 		req.session.email = fetchedUser.email;
 		req.session.user = fetchedUser.username;
+		req.session.user_id = fetchedUser.id;
 
 		return res.status(200).send({
 			code: 200,
 			message: "Gothu fam, logging you in...",
 			username: fetchedUser.username,
-			email: fetchedUser.email
+			email: fetchedUser.email,
+			user_id: fetchedUser.id
 		});
 	} else {
 		req.session.destroy();

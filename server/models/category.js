@@ -4,15 +4,11 @@ const {
 } = require('sequelize');
 const db = require('../database/db');
 
-const Category = db.define("Category", {
-	user_id: {
-		type: DataTypes.STRING,
-		allowNull: false
-	},
+const Category = db.define("category", {
 	name: {
 		type: DataTypes.STRING,
 		allowNull: false
 	}
-})
+}, {underscored: true});
 
 module.exports = Category;

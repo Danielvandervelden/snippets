@@ -23,11 +23,9 @@
 			document.body.appendChild(this.$el.querySelector('.popup'));
 		},
 		methods: {
-			triggerPopup(e) {
+			triggerPopup() {
 				const popup = document.querySelector(`[data-popup="${this.name}"]`);
 				popup.classList.toggle('popup-active');
-				
-				this.$emit('clicked', e);
 			}
 		}
 	}
