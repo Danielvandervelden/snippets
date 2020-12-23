@@ -65,6 +65,10 @@ const helpers = {
 		} else {
 			return "Invalid selector";
 		}
+	},
+
+	triggerPopup(el) {
+		el.classList.remove('popup-active');
 	}
 }
 

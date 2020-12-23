@@ -3,7 +3,8 @@ import axios from 'axios';
 const SnippetStore = {
 	state: () => ({
 		categories: [],
-		snippets: []
+		snippets: [],
+		active_category: ''
 	}),
 	getters: {
 		getCategories: state => {
@@ -12,12 +13,19 @@ const SnippetStore = {
 		
 		getSnippets: state => {
 			return state.snippets;
+		},
+
+		getActiveCategory: state => {
+			return state.active_category;
 		}
 	},
 	mutations: {
 		setCategories(state, categories) {
-			console.log(categories, "I'm here!");
 			state.categories = categories;
+		},
+		
+		setActiveCategory(state, url_param) {
+			state.active_category = state.categories.find(cat => url_param === cat.url);
 		}
 	},
 	actions: {
@@ -37,11 +45,22 @@ const SnippetStore = {
 		async fetchCategories({commit}) {
 			try {
 				const categories = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/get/categories`);
-				console.log(categories.data.data);
 
 				commit('setCategories', JSON.parse(categories.data.data));
 			} catch(err) {
 				console.log(err, 'error!!!');
+			}
+		},
+
+		async deleteCategory(context, categoryObject) {
+			try {
+				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/delete/category`, {
+					...categoryObject
+				})
+
+				return response;
+			} catch(err) {
+				console.log(err.response, 'error in delete category!');
 			}
 		}
 	}

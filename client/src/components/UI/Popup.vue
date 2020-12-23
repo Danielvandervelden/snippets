@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<a @click="triggerPopup" :title="title" :data-trigger="name" href="#">{{label}}</a>
+		<a v-if="label" @click="triggerPopup" :title="title" :data-trigger="name" href="#">{{label}}</a>
+		<a v-if="triggerSlot" @click="triggerPopup" :title="title" :data-trigger="name" href="#"><slot name="trigger" /></a>
 		<aside :data-popup="name" class="popup">
 			<div class="popup-wrapper">
 				<slot />
@@ -26,6 +27,11 @@
 			triggerPopup() {
 				const popup = document.querySelector(`[data-popup="${this.name}"]`);
 				popup.classList.toggle('popup-active');
+			}
+		},
+		computed: {
+			triggerSlot() {
+				return this.$slots['trigger'];
 			}
 		}
 	}

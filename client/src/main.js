@@ -23,6 +23,13 @@ axios.defaults.withCredentials = true;
 import Helpers from './plugins/helpers';
 Vue.use(Helpers);
 
+/* Vue Unicons */
+import Unicon from 'vue-unicons';
+import { uniTrashAlt } from 'vue-unicons/src/icons'
+
+Unicon.add([uniTrashAlt])
+Vue.use(Unicon);
+
 Vue.config.productionTip = false
 
 new Vue({

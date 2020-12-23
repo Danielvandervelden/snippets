@@ -21,7 +21,7 @@ import Input from '@/components/UI/Input.vue';
 				this.$store.dispatch('addCategoryHandler', this.category_name);
 
 				if(this.$parent.triggerPopup) {
-					this.$parent.triggerPopup();
+					this.$helpers.triggerPopup(document.querySelector('[data-popup="new_category"]'));
 				}
 			}
 		}

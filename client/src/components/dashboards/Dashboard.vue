@@ -17,6 +17,7 @@
 			$route (to) {
 				if(to.params.category) {
 					this.$store.commit('setActiveDashboard', 'category');
+					this.$store.commit('setActiveCategory', to.params.category);
 				} else {
 					this.$store.commit('setActiveDashboard', 'user');
 				}
