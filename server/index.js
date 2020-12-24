@@ -54,7 +54,7 @@ const seqStore = new SequelizeStore({
 });
 
 app.use(session({
-	secret: 'f3829fj3j21j892p3fh(P#J*(J*(F',
+	secret: process.env.SESSION_SECRET,
 	store: seqStore,
 	resave: false,
 	saveUninitialized: false,

@@ -31,6 +31,16 @@ const UserState = {
 			} catch(err) {
 				return err.response;
 			}
+		},
+		async registrationHandler(context, user) {
+			try {
+				return await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/register`, {
+					...user
+				});
+
+			} catch(err) {
+				return err.response;
+			}
 		}
 	}
 }

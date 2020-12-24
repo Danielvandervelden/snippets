@@ -21,7 +21,6 @@
 
 <script>
 	import Input from '@/components/UI/Input.vue';
-	import axios from 'axios';
 
 	export default {
 		data() {
@@ -38,7 +37,7 @@
 			Input
 		},
 		methods: {
-			registrationHandler(e) {
+			async registrationHandler(e) {
 				e.preventDefault();
 				
 				/* Check if any of the values equal to undefined */
@@ -56,28 +55,25 @@
 					return;
 				}
 
-				axios.post(`${this.$appConfig.base_url}/api/user/register`, {
-					...this.user
-				})
-				.then(() => {					
-					this.$store.dispatch('loginHandler', { user: this.user.username, pass: this.user.password })
-					.then(response => {
-						this.$store.commit('setUser', { username: response.username, email: response.email });
-						this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
-						setTimeout(() => {
-							this.$router.push(`/${this.$store.getters['getUser']}`);
-						}, 1000)
-					})
-				})
-				.catch(err => {
-					if(err.response.data.code === "duplicate_username") {
+				const response = await this.$store.dispatch('registrationHandler', this.user);
+
+				if(response.status === 200) {
+					this.$store.dispatch('loginHandler', { user: this.user.username, pass: this.user.password });
+					this.$store.commit('setUser', { username: response.username, email: response.email });
+					this.$store.dispatch('fetchCategories');
+					this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
+					setTimeout(() => {
+						this.$router.push(`/${this.$store.getters['getUser']}`);
+					}, 1000)
+				} else {
+					if(response.data.code === "duplicate_username") {
 						this.$helpers.message(document.getElementById('username'), "This username already exists, please try a different one.");
 					}
 
-					if(err.response.data.code === "duplicate_email") {
+					if(response.data.code === "duplicate_email") {
 						this.$helpers.message(document.getElementById('email'), "This email already belongs to a user, please use a different one or request a password reset.");
 					}
-				})
+				}
 			}
 		}
 	}

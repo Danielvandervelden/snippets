@@ -7,6 +7,8 @@
 
 <script>
 import Input from '@/components/UI/Input.vue';
+import { Eventbus } from '@/plugins/event-bus.js';
+
 	export default {
 		components: {
 			Input
@@ -22,6 +24,7 @@ import Input from '@/components/UI/Input.vue';
 
 				if(this.$parent.triggerPopup) {
 					this.$helpers.triggerPopup(document.querySelector('[data-popup="new_category"]'));
+					Eventbus.$emit('close-addbutton');
 				}
 			}
 		}

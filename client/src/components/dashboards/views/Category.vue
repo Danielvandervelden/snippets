@@ -7,9 +7,11 @@
 					<unicon name="trash-alt" fill="#D1495B"></unicon>
 				</template>
 				<div>
-					Are you sure you want to delete this category?
-					<a @click="deleteCategory" class="button --primary" href="#">Yes</a>
-					<a @click="closePopup" class="button --secondary" href="#">No</a>
+					<span>Are you sure you want to delete this category?</span>
+					<div class="button-wrapper">
+						<a @click="closePopup" class="button --secondary" href="#">No</a>
+						<a @click="deleteCategory" class="button --primary" href="#">Yes</a>
+					</div>
 				</div>
 			</Popup>
 		</header>
@@ -49,5 +51,13 @@
 </script>
 
 <style lang='scss' scoped>
+	.button-wrapper {
+		display: flex;
+		justify-content: space-between;
+		margin: 1rem 0 0 0;
 
+		a + a {
+			margin-left: 1rem;
+		}
+	}
 </style>

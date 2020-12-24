@@ -25,12 +25,18 @@
 import Popup from '@/components/UI/Popup.vue';
 import NewCategory from '@/components/forms/NewCategory.vue';
 import NewSnippet from '@/components/forms/NewSnippet.vue';
+import { Eventbus } from '@/plugins/event-bus.js';
 
 	export default {
 		data() {
 			return {
 				popupOpen: false
 			}
+		},
+		mounted() {
+			Eventbus.$on('close-addbutton', () => {
+				this.closeAddButton();
+			})
 		},
 		components: {
 			NewCategory,
