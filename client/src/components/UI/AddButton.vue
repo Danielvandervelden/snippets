@@ -6,15 +6,18 @@
 
 		<div id="add-button-popup">
 			<ul>
-				<li>
-					<Popup @clicked="closeAddButton" name="new_category" label="New category" title="Add a new category">
+				<li class="new-category">
+					<Popup move_to_body="true" name="new_category" label="New category" title="Add a new category">
 						<NewCategory />
 					</Popup>
 				</li>
-				<li>
-					<Popup @clicked="closeAddButton" name="new_snippet" label="New snippet" title="Add a new snippet">
+				<li id="hover_snippet_info" class="new-snippet">
+					<Popup move_to_body="true" :class="getCategories ? '' : 'disabled'" name="new_snippet" label="New snippet" title="Add a new snippet">
 						<NewSnippet />
 					</Popup>
+					<HoverInfo name="snippet_info" location="bottom" v-if="!getCategories">
+						<span>Please create at least 1 category to put your snippet in.</span>
+					</HoverInfo>
 				</li>
 			</ul>
 		</div>
@@ -25,6 +28,7 @@
 import Popup from '@/components/UI/Popup.vue';
 import NewCategory from '@/components/forms/NewCategory.vue';
 import NewSnippet from '@/components/forms/NewSnippet.vue';
+import HoverInfo from '@/components/UI/HoverInfo.vue';
 import { Eventbus } from '@/plugins/event-bus.js';
 
 	export default {
@@ -41,7 +45,13 @@ import { Eventbus } from '@/plugins/event-bus.js';
 		components: {
 			NewCategory,
 			NewSnippet,
-			Popup
+			Popup,
+			HoverInfo
+		},
+		computed: {
+			getCategories() {
+				return this.$store.getters['getCategories'].length
+			}
 		},
 		methods: {
 			closeAddButton() {
@@ -135,6 +145,15 @@ import { Eventbus } from '@/plugins/event-bus.js';
 				
 				&:last-of-type {
 					border-radius: 0 0 10px 10px;
+				}
+
+				.disabled a {
+					pointer-events: none;
+					color: $red;
+				}
+
+				&.new-snippet {
+					position: relative;
 				}
 			}
 

@@ -12,7 +12,7 @@
 
 <script>
 	export default {
-		props: ['name', 'label', 'title'],
+		props: ['name', 'label', 'title', 'move_to_body'],
 		mounted() {
 			/* Add an event listener to close the popup on a click on the before */
 			this.$el.querySelector('.popup').addEventListener('click', e => {
@@ -21,7 +21,9 @@
 				}
 			});
 
-			document.body.appendChild(this.$el.querySelector('.popup'));
+			if(this.move_to_body === "true") {
+				document.body.appendChild(this.$el.querySelector('.popup'));
+			}
 		},
 		methods: {
 			triggerPopup() {
