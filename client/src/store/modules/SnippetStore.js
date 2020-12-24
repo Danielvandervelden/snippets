@@ -1,11 +1,13 @@
 import axios from 'axios';
 
+const defaultState = () => ({
+	categories: [],
+	snippets: [],
+	active_category: ''
+})
+
 const SnippetStore = {
-	state: () => ({
-		categories: [],
-		snippets: [],
-		active_category: ''
-	}),
+	state: defaultState(),
 	getters: {
 		getCategories: state => {
 			return state.categories;
@@ -26,6 +28,10 @@ const SnippetStore = {
 		
 		setActiveCategory(state, url_param) {
 			state.active_category = state.categories.find(cat => url_param === cat.url);
+		},
+
+		resetSnippetState(state) {
+			Object.assign(state, defaultState());
 		}
 	},
 	actions: {

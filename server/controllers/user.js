@@ -131,18 +131,36 @@ exports.login = async (req, res) => {
 	}
 }
 
-exports.auth = async (req, res) => {
+exports.auth = (req, res) => {
 	if(req.session.user) {
-		res.status(200).send({
+		return res.status(200).send({
 			code: 200,
 			message: "Succesfully authorized",
 			user: req.session.user,
 			email: req.session.email
 		})
 	} else {
-		res.status(200).send({
+		return res.status(200).send({
 			code: 401,
 			message: "Not logged in"
+		})
+	}
+}
+
+exports.logout = async (req, res) => {
+	if(req.session) {
+		await req.session.destroy(() => {
+			return res.clearCookie('snippet_session', { path: '/' }).status(200).send({
+				code: 200,
+				message: "Successfully logged out",
+				code: "logout_successful"
+			})
+		}
+	)} else {
+		return res.status(500).send({
+			code: 401,
+			message: "No session there to begin with",
+			code: "no_session"
 		})
 	}
 }

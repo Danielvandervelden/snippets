@@ -1,7 +1,9 @@
+const defaultState = () => ({
+	active: 'user'
+})
+
 const SnippetStore = {
-	state: () => ({
-		active: 'user'
-	}),
+	state: defaultState(),
 	getters: {
 		getActiveDashboard: state => {
 			return state.active;
@@ -10,6 +12,10 @@ const SnippetStore = {
 	mutations: {
 		setActiveDashboard(state, dashboardName) {
 			state.active = dashboardName
+		},
+
+		resetDashboardState(state) {
+			Object.assign(state, defaultState());
 		}
 	}
 }

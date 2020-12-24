@@ -10,6 +10,9 @@
 					</li>
 				</ul>
 			</li>	
+			<li>
+				<a @click="logoutHandler" href="#" title="Click here to logout of your account.">Logout</a>
+			</li>
 		</ul>	
 	</nav>
 </template>
@@ -22,6 +25,14 @@
 			},
 			getUser() {
 				return this.$store.getters['getUser'];
+			}
+		},
+		methods: {
+			async logoutHandler() {
+				const response = await this.$store.dispatch('logoutHandler');
+				if(response.data.code === 'logout_successful') {
+					this.$router.push('/');
+				}
 			}
 		}
 	}

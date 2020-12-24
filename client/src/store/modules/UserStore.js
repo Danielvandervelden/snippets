@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+const defaultState = () => ({
+	user: null,
+	user_email: null
+})
+
 const UserState = {
-	state: () => ({
-		user: null,
-		user_email: null
-	}),
+	state: defaultState(),
 	getters: {
 		getUser: state => {
 			return state.user;
@@ -14,6 +16,10 @@ const UserState = {
 		setUser(state, userObject) {
 			state.user = userObject.username;
 			state.user_email = userObject.email;
+		},
+
+		resetUserStore(state) {
+			Object.assign(state, defaultState());
 		}
 	},
 	actions: {
@@ -25,6 +31,19 @@ const UserState = {
 				return err.response;
 			}
 		},
+
+		async logoutHandler({commit}) {
+			commit('resetUserStore');
+			commit('resetSnippetState', null, { root: true });
+			commit('resetDashboardState', null, { root: true });
+
+			window.localStorage.removeItem('vuex');
+
+			const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/logout`);
+			
+			return response;
+		},
+
 		async auth() {
 			try {
 				return await axios.get(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/auth`)
