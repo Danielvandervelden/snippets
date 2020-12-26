@@ -30,9 +30,16 @@
 				password: null
 			}
 		},
+		mounted() {
+			document.addEventListener('keyup', e => {
+				e.which === 13 ? this.loginHandler() : '';
+			})
+		},
 		methods: {
 			async loginHandler(e) {
-				e.preventDefault();
+				if(e) {
+					e.preventDefault();
+				}
 				if(!this.user || !this.password) {
 					this.$helpers.message(document.querySelector('.form-wrapper'), 'Please fill in all the fields.')
 				}

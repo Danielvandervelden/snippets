@@ -26,8 +26,8 @@
 
 <script>
 import Popup from '@/components/UI/Popup.vue';
-import NewCategory from '@/components/forms/NewCategory.vue';
-import NewSnippet from '@/components/forms/NewSnippet.vue';
+import NewCategory from '@/components/popup/NewCategory.vue';
+import NewSnippet from '@/components/popup/NewSnippet.vue';
 import HoverInfo from '@/components/UI/HoverInfo.vue';
 import { Eventbus } from '@/plugins/event-bus.js';
 

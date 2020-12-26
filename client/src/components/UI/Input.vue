@@ -1,6 +1,7 @@
 <template>
 	<div v-if="name && type" :id="name" class="input-wrapper">
-		<input @input="inputHandler" @blur="blurHandler($event)" :name="name" :type="type">
+		<input v-if="type !== 'textarea'" @input="inputHandler" @blur="blurHandler($event)" :name="name" :type="type" />
+		<textarea v-else-if="type === 'textarea'" @input="inputHandler" @blur="blurHandler($event)" :name="name" type="textarea" />
 		<label v-if="label" :for="name">{{label}}</label>
 	</div>
 	<span v-else>You have to fill in a name and a type at the very least</span>

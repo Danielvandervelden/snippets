@@ -68,6 +68,16 @@ const SnippetStore = {
 			} catch(err) {
 				console.log(err.response, 'error in delete category!');
 			}
+		},
+
+		async saveSnippetHandler(context, snippetObject) {
+			try {
+				return await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/add/snippet`, {
+					...snippetObject
+				});
+			} catch(err) {
+				console.log("ERROR:" + err);
+			}
 		}
 	}
 }
