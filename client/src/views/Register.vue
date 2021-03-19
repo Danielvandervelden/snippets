@@ -58,8 +58,8 @@
 				const response = await this.$store.dispatch('registrationHandler', this.user);
 
 				if(response.status === 200) {
-					this.$store.dispatch('loginHandler', { user: this.user.username, pass: this.user.password });
-					this.$store.commit('setUser', { username: response.username, email: response.email });
+					const loginResponse = await this.$store.dispatch('loginHandler', { user: this.user.username, pass: this.user.password });
+					this.$store.commit('setUser', { username: loginResponse.username, email: loginResponse.email });
 					this.$store.dispatch('fetchCategories');
 					this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
 					setTimeout(() => {

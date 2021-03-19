@@ -3,14 +3,18 @@
 		<label v-if="label" :for="name">{{label}}</label>
 		<select :value="value" @change="$emit('input', $event.target.value)">
 			<option selected disabled value="null">- Select a category</option>
-			<option :name="name" v-for="option in options" :key="option" :value="option">{{option}}</option>
+			<option :name="name" v-for="option in options" :key="option.value" :value="option.value">{{option.label}}</option>
 		</select>
 	</div>
 </template>
 
 <script>
 	export default {
-		props: ["options", "label", "name"],
+		props: {
+			options: Array,
+			name: String,
+			label: String
+		},
 		data() {
 			return {
 				value: null

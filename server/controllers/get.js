@@ -2,8 +2,16 @@ const User = require('../models/user');
 
 exports.categories = async (req, res) => {
 	const fetchedUser = await User.findByPk(req.session.user_id);
-
-	const categories = await fetchedUser.getCategories();
+	let categories;
+	
+	try {
+		categories = await fetchedUser.getCategories();
+	} catch {
+		return res.status(401).send({
+			code: 401,
+			message: "Couldn't fetch categories"
+		})
+	}
 
 	const responseArray = categories.map(cat => {
 		return {

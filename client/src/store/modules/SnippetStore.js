@@ -54,7 +54,7 @@ const SnippetStore = {
 
 				commit('setCategories', JSON.parse(categories.data.data));
 			} catch(err) {
-				console.log(err, 'error!!!');
+				console.log(err, 'Error while fetching categories.');
 			}
 		},
 

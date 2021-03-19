@@ -5,11 +5,11 @@ const {
 const db = require('../database/db');
 
 const Snippet = db.define("snippet", {
-	content: {
+	name: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
-	date: {
+	content: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},

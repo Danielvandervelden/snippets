@@ -13,6 +13,7 @@
 		methods: {
 			inputHandler(e) {
 				this.$emit('input', e.target.value);
+				console.log("INPUTTING", e.target.value);
 			},
 			blurHandler(e) {
 				if(e.currentTarget.value.length > 0) {
@@ -52,6 +53,7 @@
 			position: absolute;
 			transform: translateY(12.5px);
 			left: 10px;
+			top: 0;
 			transition: all .15s ease-in-out;
 			pointer-events: none;
 		}

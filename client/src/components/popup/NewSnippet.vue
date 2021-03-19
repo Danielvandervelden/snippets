@@ -27,7 +27,10 @@ import Select from '@/components/UI/Select.vue';
 		},
 		computed: {
 			getCategories() {
-				return this.$store.getters['getCategories'].map(cat => cat.label);
+				console.log(this.$store.getters['getCategories']);
+				return this.$store.getters['getCategories'].map(cat => {
+					return { label: cat.label, value: cat.id}
+				});
 			}
 		},
 		methods: {
