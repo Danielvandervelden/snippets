@@ -2,7 +2,7 @@
 	<div class="new-category">
 		Please fill in the below fields to create a new snippet:
 		<Input v-model="snippet_name" :value="snippet_name" name="snippet_name" type="text" label="Snippet name" />
-		<CodeEditor v-model="snippet_content" />
+		<CodeEditor create v-model="snippet_content" />
 		<Select :key="componentKey" v-model="snippet_category" name="category_select" label="Select what category to put the snippet in." :options="getCategories" />
 		<button @click="saveSnippetHandler">Save snippet</button>
 	</div>

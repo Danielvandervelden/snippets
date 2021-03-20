@@ -3,7 +3,8 @@ import axios from 'axios';
 const defaultState = () => ({
 	categories: [],
 	snippets: [],
-	active_category: ''
+	active_category: '',
+	active_category_snippets: []
 })
 
 const SnippetStore = {
@@ -19,6 +20,10 @@ const SnippetStore = {
 
 		getActiveCategory: state => {
 			return state.active_category;
+		},
+
+		getSnippetsInCurrentCategory: state => {
+			return state.active_category_snippets;
 		}
 	},
 	mutations: {
@@ -28,6 +33,10 @@ const SnippetStore = {
 		
 		setActiveCategory(state, url_param) {
 			state.active_category = state.categories.find(cat => url_param === cat.url);
+		},
+
+		setActiveCategorySnippets(state, snippetArray) {
+			state.active_category_snippets = snippetArray;
 		},
 
 		resetSnippetState(state) {
@@ -74,11 +83,25 @@ const SnippetStore = {
 
 		async saveSnippetHandler(context, snippetObject) {
 			try {
-				return await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/add/snippet`, {
+				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/add/snippet`, {
 					...snippetObject
 				});
+
+				return response;
 			} catch(err) {
-				console.log("ERROR:" + err);
+				console.log("ERROR in saveSnippetHandler: " + err);
+			}
+		},
+
+		async fetchSnippetsInCategory({commit}, category_id) {
+			try {
+				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/get/snippets`, {
+					category_id: category_id
+				});
+
+				commit('setActiveCategorySnippets', response.data.data);
+			} catch(err) {
+				console.log("ERROR in fetchSnippetsFromCategory: " + err);
 			}
 		}
 	}

@@ -81,6 +81,7 @@ import { Eventbus } from '@/plugins/event-bus.js';
 <style lang='scss' scoped>
 	#add-button-wrapper {
 		position: fixed;
+		z-index: 1;
 		bottom: 30px;
 		right: 30px;
 	}
