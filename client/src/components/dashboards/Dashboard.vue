@@ -14,10 +14,12 @@
 			'dashboard-category': UserCategory
 		},
 		watch: {
-			$route (to) {
+			async $route (to) {
+				console.log(to.params);
 				if(to.params.category) {
 					this.$store.commit('setActiveDashboard', 'category');
-					this.$store.commit('setActiveCategory', to.params.category);
+					this.$store.commit('setActiveCategory', this.$store.getters['getCategories'].find(cat => to.params.category === cat.url));
+					await this.$store.dispatch('fetchSnippetsInCategory', this.$store.getters['getActiveCategory'].id);
 				} else {
 					this.$store.commit('setActiveDashboard', 'user');
 				}

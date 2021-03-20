@@ -1,8 +1,14 @@
 <template>
 	<div>
 		<header>
-			<h1 v-html="getActiveCategory.label"></h1>
-			<Popup name="delete_category" title="Click here to delete this category.">
+			<h1 v-html="getActiveCategory.label" />
+			<Popup move_to_body="true" name="edit_category" title="Click here to edit the category.">
+				<template v-slot:trigger>
+					<unicon name="pen" fill="#000000"></unicon>
+				</template>
+				<EditCategory />
+			</Popup>
+			<Popup move_to_body="true" name="delete_category" title="Click here to delete this category.">
 				<template v-slot:trigger>
 					<unicon name="trash-alt" fill="#D1495B"></unicon>
 				</template>
@@ -18,12 +24,14 @@
 <script>
 	import Popup from '@/components/UI/Popup';
 	import DeleteCategory from '@/components/popup/DeleteCategory';
+	import EditCategory from '@/components/popup/EditCategory';
 	import Snippet from '@/components/UI/Snippet';
 
 	export default {
 		components: {
 			Popup,
 			DeleteCategory,
+			EditCategory,
 			Snippet
 		},
 		computed: {
@@ -40,23 +48,23 @@
 	}
 </script>
 
-<style lang='scss' scoped>
-	.button-wrapper {
+<style lang='scss' scoped>	
+	header {
 		display: flex;
-		justify-content: space-between;
-		margin: 1rem 0 0 0;
+		align-items: center;
 
-		a + a {
-			margin-left: 1rem;
+		h1 {
+			flex-grow: 1;
+			margin: 0;
 		}
 	}
-	
+
 	main {
 		display: flex;
 		flex-wrap: wrap;
 		margin-top: 40px;
 
-		@media screen and (max-width: $max_break_desktop) {
+		@media screen and (max-width: $max_break_tablet) {
 			.snippet {
 				@include flex(100%, 0, 0);
 
@@ -66,7 +74,7 @@
 			}
 		}
 
-		@media screen and (min-width: $break_desktop) {
+		@media screen and (min-width: $break_tablet) {
 			.snippet {
 				@include flex(calc(50% - 20px), 0, 0);
 

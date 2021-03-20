@@ -44,6 +44,8 @@ import Select from '@/components/UI/Select.vue';
 				if(response.data.code === 200) {
 					this.$parent.triggerPopup();
 				}
+
+				this.$store.dispatch('fetchSnippetsInCategory', this.$store.getters['getActiveCategory'].id);
 			},
 			forceUpdate() {
 				this.componentKey += 1;

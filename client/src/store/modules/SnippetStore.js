@@ -31,8 +31,8 @@ const SnippetStore = {
 			state.categories = categories;
 		},
 		
-		setActiveCategory(state, url_param) {
-			state.active_category = state.categories.find(cat => url_param === cat.url);
+		setActiveCategory(state, categoryObject) {
+			state.active_category = categoryObject
 		},
 
 		setActiveCategorySnippets(state, snippetArray) {
@@ -69,6 +69,18 @@ const SnippetStore = {
 			}
 		},
 
+		async editCategory(context, newCategoryObject) {
+			try {
+				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/update/category`, {
+					...newCategoryObject
+				});
+
+				console.log(response);
+			} catch(err) {
+				console.log("Error in edit category " + err);
+			}
+		},
+
 		async deleteCategory(context, categoryObject) {
 			try {
 				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/delete/category`, {
@@ -86,6 +98,8 @@ const SnippetStore = {
 				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/add/snippet`, {
 					...snippetObject
 				});
+
+				// dispatch('fetchSnippetsInCategory', snippetObject.snippet_category);
 
 				return response;
 			} catch(err) {

@@ -15,10 +15,15 @@ import Dashboard from '@/components/dashboards/Dashboard.vue';
 			Navigation,
 			AddButton,
 			Dashboard
+		},
+		mounted() {
+			this.$el.style.marginTop = document.getElementById('navigation').offsetHeight + 'px';
 		}
 	}
 </script>
 
 <style lang='scss' scoped>
-
+	main {
+		padding-top: 30px;
+	}
 </style>

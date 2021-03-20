@@ -1,7 +1,5 @@
 import VueRouter from 'vue-router';
-import {
-	store
-} from '../store/store';
+import { store } from '../store/store';
 
 /* Views */
 import Home from '../views/Home.vue';

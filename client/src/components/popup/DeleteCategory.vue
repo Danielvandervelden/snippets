@@ -31,5 +31,13 @@
 </script>
 
 <style lang='scss' scoped>
+	.button-wrapper {
+		display: flex;
+		justify-content: space-between;
+		margin: 1rem 0 0 0;
 
+		a + a {
+			margin-left: 1rem;
+		}
+	}
 </style>

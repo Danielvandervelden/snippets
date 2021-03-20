@@ -77,6 +77,7 @@
 		padding: 7px 10px 0px;
 		font-size: 1.6rem;
 		margin: 1.5rem 0 0;
+		resize: none;
 	}
 
 	.snippet-actions {
