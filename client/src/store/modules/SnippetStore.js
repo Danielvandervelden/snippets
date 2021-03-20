@@ -42,9 +42,11 @@ const SnippetStore = {
 				});
 
 				dispatch('fetchCategories');
+				return true
 				
 			} catch(err) {
 				console.log(err.reponse);
+				return false;
 			}
 		},
 

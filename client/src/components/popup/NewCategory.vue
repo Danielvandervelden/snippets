@@ -1,7 +1,6 @@
 <template>
 	<div class="new-category">
-		{{category_name}}
-		<Input v-model="category_name" name="category_name" type="text" label="Enter a new category name" />
+		<Input :key="componentKey" v-model="category_name" :value="category_name" name="category_name" type="text" label="Enter a new category name" />
 		<a @click="addCategoryHandler" href="#" title="Click here to add a new category with the name you provided." class="button --secondary">Add new category</a>
 	</div>
 </template>
@@ -16,21 +15,23 @@ import { Eventbus } from '@/plugins/event-bus.js';
 		},
 		data() {
 			return {
-				category_name: null
+				componentKey: 0,
+				category_name: ''
 			}
 		},
 		methods: {
-			addCategoryHandler() {
-				if(this.category_name !== null) {
-					this.$store.dispatch('addCategoryHandler', this.category_name);
-				} else {
-					console.log(this.category_name, 'category is null...')
-				}
+			async addCategoryHandler() {
+				const response = await this.$store.dispatch('addCategoryHandler', this.category_name);
+				
+				if(response) { this.forceUpdate() }
 
 				if(this.$parent.triggerPopup) {
 					this.$helpers.triggerPopup(document.querySelector('[data-popup="new_category"]'));
 					Eventbus.$emit('close-addbutton');
 				}
+			},
+			forceUpdate() {
+				this.componentKey += 1;
 			}
 		}
 	}

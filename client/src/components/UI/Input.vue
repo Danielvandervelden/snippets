@@ -9,11 +9,14 @@
 
 <script>
 	export default {
-		props: ['name', 'type', 'label'],
+		props: {
+			name: String,
+			type: String,
+			label: String
+		},
 		methods: {
 			inputHandler(e) {
 				this.$emit('input', e.target.value);
-				console.log("INPUTTING", e.target.value);
 			},
 			blurHandler(e) {
 				if(e.currentTarget.value.length > 0) {

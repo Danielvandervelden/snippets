@@ -6,8 +6,8 @@
 		<h1>Login</h1>
 		<div class="form-wrapper">
 			<form action="#" method="post">
-				<Input v-model="user" name="user" type="text" label="Username or E-mail address" />
-				<Input v-model="password" name="password" type="password" label="Password" />
+				<Input v-model="user" :value="user" name="user" type="text" label="Username or E-mail address" />
+				<Input v-model="password" :value="password" name="password" type="password" label="Password" />
 			</form>
 		</div>
 		<div class="button-wrapper">

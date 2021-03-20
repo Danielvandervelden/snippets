@@ -6,10 +6,10 @@
 		<h1>Registration</h1>
 		<div class="form-wrapper">
 			<form action="#" method="post">
-				<Input v-model="user.username" name="username" type="text" label="Username" />
-				<Input v-model="user.email" name="email" type="email" label="Email" />
-				<Input v-model="user.password" name="password" type="password" label="Password" />
-				<Input v-model="user.password_confirm" name="password_confirm" type="password" label="Confirm password" />
+				<Input v-model="user.username" :value="user.username" name="username" type="text" label="Username" />
+				<Input v-model="user.email" :value="user.email" name="email" type="email" label="Email" />
+				<Input v-model="user.password" :value="user.password" name="password" type="password" label="Password" />
+				<Input v-model="user.password_confirm" :value="user.password_confirm" name="password_confirm" type="password" label="Confirm password" />
 			</form>
 		</div>
 		<div class="button-wrapper">
@@ -26,10 +26,10 @@
 		data() {
 			return {
 				user: {
-					username: undefined,
-					email: undefined,
-					password: undefined,
-					password_confirm: undefined
+					username: '',
+					email: '',
+					password: '',
+					password_confirm: ''
 				}
 			}
 		},
