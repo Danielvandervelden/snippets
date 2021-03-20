@@ -1,9 +1,9 @@
 <template>
 	<div class="new-category">
 		Please fill in the below fields to create a new snippet:
-		<Input v-model="snippet_name" name="snippet_name" type="text" label="Snippet name" />
+		<Input v-model="snippet_name" :value="snippet_name" name="snippet_name" type="text" label="Snippet name" />
 		<CodeEditor v-model="snippet_content" />
-		<Select v-model="snippet_category" name="category_select" label="Select what category to put the snippet in." :options="getCategories" />
+		<Select :key="componentKey" v-model="snippet_category" name="category_select" label="Select what category to put the snippet in." :options="getCategories" />
 		<button @click="saveSnippetHandler">Save snippet</button>
 	</div>
 </template>
@@ -20,14 +20,14 @@ import Select from '@/components/UI/Select.vue';
 		},
 		data() {
 			return {
-				snippet_name: null,
-				snippet_content: null,
-				snippet_category: null
+				componentKey: 0,
+				snippet_name: '',
+				snippet_content: '',
+				snippet_category: ''
 			}
 		},
 		computed: {
 			getCategories() {
-				console.log(this.$store.getters['getCategories']);
 				return this.$store.getters['getCategories'].map(cat => {
 					return { label: cat.label, value: cat.id}
 				});
@@ -41,7 +41,12 @@ import Select from '@/components/UI/Select.vue';
 					snippet_category: this.snippet_category
 				});
 
-				console.log(response);
+				if(response.data.code === 200) {
+					this.$parent.triggerPopup();
+				}
+			},
+			forceUpdate() {
+				this.componentKey += 1;
 			}
 		}
 	}

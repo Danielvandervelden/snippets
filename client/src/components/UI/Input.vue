@@ -48,6 +48,7 @@
 				+ label {
 					transform: translateY(0px);
 					font-size: 1rem;
+					color: $blue;
 				}
 			}
 		}
@@ -59,6 +60,7 @@
 			top: 0;
 			transition: all .15s ease-in-out;
 			pointer-events: none;
+			color: rgba(0, 0, 0, .7);
 		}
 
 		+ .input-wrapper {

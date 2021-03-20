@@ -6,14 +6,14 @@
 
 		<div id="add-button-popup">
 			<ul>
-				<li class="new-category">
+				<li @click="forceUpdate" class="new-category">
 					<Popup move_to_body="true" name="new_category" label="New category" title="Add a new category">
-						<NewCategory />
+						<NewCategory :key="componentKey" />
 					</Popup>
 				</li>
-				<li id="hover_snippet_info" class="new-snippet">
+				<li @click="forceUpdate" id="hover_snippet_info" class="new-snippet">
 					<Popup move_to_body="true" :class="getCategories ? '' : 'disabled'" name="new_snippet" label="New snippet" title="Add a new snippet">
-						<NewSnippet />
+						<NewSnippet :key="componentKey" />
 					</Popup>
 					<HoverInfo name="snippet_info" location="bottom" v-if="!getCategories">
 						<span>Please create at least 1 category to put your snippet in.</span>
@@ -34,6 +34,7 @@ import { Eventbus } from '@/plugins/event-bus.js';
 	export default {
 		data() {
 			return {
+				componentKey: 0,
 				popupOpen: false
 			}
 		},
@@ -69,6 +70,9 @@ import { Eventbus } from '@/plugins/event-bus.js';
 					this.popupOpen = false;
 					this.$el.classList.remove('active');
 				}
+			},
+			forceUpdate() {
+				this.componentKey += 1;
 			}
 		}
 	}

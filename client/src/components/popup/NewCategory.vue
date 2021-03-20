@@ -1,6 +1,6 @@
 <template>
 	<div class="new-category">
-		<Input :key="componentKey" v-model="category_name" :value="category_name" name="category_name" type="text" label="Enter a new category name" />
+		<Input v-model="category_name" :value="category_name" name="category_name" type="text" label="Enter a new category name" />
 		<a @click="addCategoryHandler" href="#" title="Click here to add a new category with the name you provided." class="button --secondary">Add new category</a>
 	</div>
 </template>

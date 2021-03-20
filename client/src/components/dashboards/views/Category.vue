@@ -6,13 +6,7 @@
 				<template v-slot:trigger>
 					<unicon name="trash-alt" fill="#D1495B"></unicon>
 				</template>
-				<div>
-					<span>Are you sure you want to delete this category?</span>
-					<div class="button-wrapper">
-						<a @click="closePopup" class="button --secondary" href="#">No</a>
-						<a @click="deleteCategory" class="button --primary" href="#">Yes</a>
-					</div>
-				</div>
+				<DeleteCategory />
 			</Popup>
 		</header>
 	</div>
@@ -20,33 +14,17 @@
 
 <script>
 	import Popup from '@/components/UI/Popup';
+	import DeleteCategory from '@/components/popup/DeleteCategory';
 	export default {
 		components: {
-			Popup
+			Popup,
+			DeleteCategory
 		},
 		computed: {
 			getActiveCategory() {
 				return this.$store.getters['getActiveCategory'];
 			}
-		},
-		methods: {
-			closePopup() {
-				this.$helpers.triggerPopup(document.querySelector('[data-popup="delete_category"]'))
-			},
-
-			async deleteCategory() {
-				this.closePopup();
-
-				try {
-					/* eslint-disable-next-line */
-					await this.$store.dispatch('deleteCategory', this.$store.getters['getActiveCategory']);
-					this.$store.dispatch('fetchCategories');
-					this.$router.push(`/${this.$store.getters['getUser']}`)
-				} catch(err) {
-					console.log(err);
-				}
-			}
-		}		
+		}	
 	}
 </script>
 
