@@ -4,11 +4,9 @@
 		<a @click="addCategoryHandler" href="#" title="Click here to add a new category with the name you provided." class="button --secondary">Add new category</a>
 	</div>
 </template>
-
 <script>
 import Input from '@/components/UI/Input.vue';
 import { Eventbus } from '@/plugins/event-bus.js';
-
 	export default {
 		components: {
 			Input
@@ -21,13 +19,17 @@ import { Eventbus } from '@/plugins/event-bus.js';
 		},
 		methods: {
 			async addCategoryHandler() {
-				const response = await this.$store.dispatch('addCategoryHandler', this.category_name);
-				
-				if(response) { this.forceUpdate() }
-
-				if(this.$parent.triggerPopup) {
-					this.$helpers.triggerPopup(document.querySelector('[data-popup="new_category"]'));
-					Eventbus.$emit('close-addbutton');
+				if(this.category_name !== '') {
+					const response = await this.$store.dispatch('addCategoryHandler', this.category_name);
+					
+					if(response) { this.forceUpdate() }
+					if(this.$parent.triggerPopup) {
+						this.$helpers.triggerPopup(document.querySelector('[data-popup="new_category"]'));
+						Eventbus.$emit('close-addbutton');
+					}
+				} else {
+					this.forceUpdate();
+					this.$helpers.message(this.$el, 'Something went wrong when creating the category, please try again.')
 				}
 			},
 			forceUpdate() {
@@ -36,7 +38,6 @@ import { Eventbus } from '@/plugins/event-bus.js';
 		}
 	}
 </script>
-
 <style lang='scss' scoped>
 	.button {
 		margin-top: 2rem;

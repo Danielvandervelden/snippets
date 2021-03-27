@@ -26,14 +26,14 @@
 				this.$parent.triggerPopup();
 
 				try {
-					await this.$store.dispatch('editCategory', {
+					const response = await this.$store.dispatch('editCategory', {
 						id: this.$store.getters['getActiveCategory'].id,
 						new_category_name: this.new_category_name
 					});
-					
-					this.$store.dispatch('fetchCategories');
-					this.forceUpdate();
-
+					if(response.data.code === 200) {
+						this.forceUpdate();
+						this.$router.push(`/${this.$store.getters['getUser']}/${this.new_category_name.toLowerCase()}`);
+					}
 				} catch(err) {
 					console.log(err);
 				}

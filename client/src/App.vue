@@ -3,7 +3,10 @@
 </template>
 
 <script>
-	export default {		
+	export default {	
+		mounted() {
+			this.$store.dispatch('fetchCategories');
+		}	
 	}
 </script>
 

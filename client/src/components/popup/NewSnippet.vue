@@ -7,7 +7,6 @@
 		<button @click="saveSnippetHandler">Save snippet</button>
 	</div>
 </template>
-
 <script>
 import Input from '@/components/UI/Input.vue';
 import CodeEditor from '@/components/UI/CodeEditor.vue';
@@ -40,12 +39,9 @@ import Select from '@/components/UI/Select.vue';
 					snippet_content: JSON.stringify(this.snippet_content),
 					snippet_category: this.snippet_category
 				});
-
 				if(response.data.code === 200) {
 					this.$parent.triggerPopup();
 				}
-
-				this.$store.dispatch('fetchSnippetsInCategory', this.$store.getters['getActiveCategory'].id);
 			},
 			forceUpdate() {
 				this.componentKey += 1;
@@ -53,7 +49,5 @@ import Select from '@/components/UI/Select.vue';
 		}
 	}
 </script>
-
 <style lang='scss' scoped>
-
 </style>

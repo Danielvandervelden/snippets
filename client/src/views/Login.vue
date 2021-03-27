@@ -16,10 +16,8 @@
 		</div>	
 	</main>
 </template>
-
 <script>
 	import Input from '@/components/UI/Input.vue';
-
 	export default {
 		components: {
 			Input
@@ -43,15 +41,16 @@
 				if(!this.user || !this.password) {
 					this.$helpers.message(document.querySelector('.form-wrapper'), 'Please fill in all the fields.')
 				}
-
 				const response = await this.$store.dispatch('loginHandler', {user: this.user, pass: this.password});
-				if(response.code === 200) {
+				if(response.data.code === 200) {
 					this.$store.commit('setUser', { username: response.username, email: response.email });
 					this.fetchCategories();
 					this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
 					setTimeout(() => {
 						this.$router.push(`/${this.$store.getters['getUser']}`);
 					}, 1000)
+				} else if(response.data.code === "user_not_found") {
+					this.$helpers.message(document.querySelector('.form-wrapper'), 'User/password combination not found')
 				}
 			},
 			
@@ -61,37 +60,30 @@
 		}
 	}
 </script>
-
 <style lang='scss' scoped>
 	.logo-wrapper {
 		text-align: center;
 	}
-
 	img {
 		max-width: 300px;
 		min-width: 200px;
 		width: 50vw;
 	}
-
 	h1 {
 		text-align: center;
 		animation: wave 2s ease-in-out infinite;
 	}
-
 	@keyframes wave {
 		0% {
 			transform: translateY(0);
 		}
-
 		50% {
 			transform: translateY(10px);
 		}
-
 		100% {
 			transform: translateY(0);
 		}
 	}
-
 	.form-wrapper {
 		max-width: 700px;
 		margin: 0 auto;

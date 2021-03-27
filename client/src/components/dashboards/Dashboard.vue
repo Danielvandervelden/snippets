@@ -15,7 +15,6 @@
 		},
 		watch: {
 			async $route (to) {
-				console.log(to.params);
 				if(to.params.category) {
 					this.$store.commit('setActiveDashboard', 'category');
 					this.$store.commit('setActiveCategory', this.$store.getters['getCategories'].find(cat => to.params.category === cat.url));

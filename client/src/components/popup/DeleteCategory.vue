@@ -20,7 +20,6 @@
 
 				try {
 					await this.$store.dispatch('deleteCategory', this.$store.getters['getActiveCategory']);
-					this.$store.dispatch('fetchCategories');
 					this.$router.push(`/${this.$store.getters['getUser']}`)
 				} catch(err) {
 					console.log(err);
