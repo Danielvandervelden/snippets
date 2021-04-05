@@ -5,7 +5,9 @@
 <script>
 	export default {	
 		mounted() {
-			this.$store.dispatch('fetchCategories');
+			if(this.$store.getters['loggedIn']) {
+				this.$store.dispatch('fetchCategories');
+			}
 		}	
 	}
 </script>

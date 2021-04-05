@@ -35,9 +35,9 @@ export const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
 	const response = await store.dispatch('auth');
 	if (response.data.code === 200) {
-		store.commit('setUser', { username: response.data.user, email: response.data.email })
-		if(to.fullPath.indexOf(store.getters['getUser']) === -1) {
-			next(`/${store.getters['getUser']}`);
+		store.commit('setUser', { ...response.data.user })
+		if(to.fullPath.indexOf(store.getters['getUser'].username) === -1) {
+			next(`/${store.getters['getUser'].username}`);
 		} else {
 			next();
 		}

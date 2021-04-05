@@ -42,21 +42,17 @@
 					this.$helpers.message(document.querySelector('.form-wrapper'), 'Please fill in all the fields.')
 				}
 				const response = await this.$store.dispatch('loginHandler', {user: this.user, pass: this.password});
-				if(response.data.code === 200) {
-					this.$store.commit('setUser', { username: response.username, email: response.email });
-					this.fetchCategories();
+
+				if(response.code === 200) {
+					this.$store.commit('setUser', response.user);
 					this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
-					setTimeout(() => {
-						this.$router.push(`/${this.$store.getters['getUser']}`);
-					}, 1000)
+					setTimeout(function() {
+						this.$router.push(`/${this.$store.getters['getUser'].username}`);
+					}.bind(this), 1000)
 				} else if(response.data.code === "user_not_found") {
 					this.$helpers.message(document.querySelector('.form-wrapper'), 'User/password combination not found')
 				}
 			},
-			
-			async fetchCategories() {
-				this.$store.dispatch('fetchCategories');
-			}
 		}
 	}
 </script>

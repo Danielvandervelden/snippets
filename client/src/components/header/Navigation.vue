@@ -1,12 +1,12 @@
 <template>
 	<nav id="navigation">
 		<ul>
-			<li><router-link :to="`/${getUser}`">Dashboard</router-link></li>	
+			<li><router-link :to="`/${getUser.username}`">Dashboard</router-link></li>	
 			<li v-if="getCategories.length > 0">
 				<span>Categories</span>
 				<ul class="submenu">
 					<li v-for="(cat, index) in getCategories" :key="`category_${index}`">
-						<router-link :to="`/${getUser}/${cat.url}`">{{cat.label}}</router-link>
+						<router-link :to="`/${getUser.username}/${cat.url}`">{{cat.label}}</router-link>
 					</li>
 				</ul>
 			</li>	
@@ -41,6 +41,7 @@
 <style lang='scss' scoped>
 	nav {
 		position: fixed;
+		z-index: 5;
 		top: 0;
 		left: 50%;
 		transform: translateX(-50%);

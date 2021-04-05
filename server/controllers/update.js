@@ -16,20 +16,27 @@ exports.category = async (req, res) => {
 			}
 		)
 
+		const url = new_category_name.toLowerCase().replace(/\s/g, '-');
+
+		console.log();
+
 		const category = {
 			label: new_category_name,
-			url: new_category_name.toLowerCase().replace(' ', '-'),
+			url: url,
 			id: id
 		}
+
+		console.log(category);
 
 		return res.status(200).send({
 			code: 200,
 			message: JSON.stringify(category)
 		})
 	} catch(err) {
+		console.log(err);
 		return res.status(400).send({
 			code: 400,
-			message: err
+			message: err.message
 		})
 	}
 }

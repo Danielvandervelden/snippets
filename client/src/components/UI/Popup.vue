@@ -5,6 +5,7 @@
 		<aside :data-popup="name" class="popup">
 			<div class="popup-wrapper">
 				<slot />
+				<a class="close-popup" href="#" @click="triggerPopup"><unicon name="times" fill="red" /></a>
 			</div>
 		</aside>
 	</div>
@@ -26,7 +27,12 @@
 			}
 		},
 		methods: {
-			triggerPopup() {
+			triggerPopup(e) {
+				if(e) {
+					e.preventDefault();
+					e.stopPropagation();
+				}
+				this.$emit('click', e);
 				const popup = document.querySelector(`[data-popup="${this.name}"]`);
 				popup.classList.toggle('popup-active');
 			}
@@ -40,5 +46,5 @@
 </script>
 
 <style lang='scss' scoped>
-
+	
 </style>

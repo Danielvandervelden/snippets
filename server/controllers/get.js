@@ -17,7 +17,7 @@ exports.categories = async (req, res) => {
 	const responseArray = categories.map(cat => {
 		return {
 			label: cat.name,
-			url: cat.name.toLowerCase().replace(/\s/, '-'),
+			url: cat.name.toLowerCase().replace(/\s/g, '-'),
 			id: cat.id
 		}
 	});

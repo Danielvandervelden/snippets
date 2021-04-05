@@ -1,7 +1,9 @@
 const Category = require('../models/category');
 const Snippet = require('../models/snippet');
+const User = require('../models/user');
 
-exports.category = (req, res) => {
+exports.category = async (req, res) => {
+	console.log(req.session.user, 'USERJIOESRJIEOSPIJOR');
 	if(req.session.user) {
 		return Category.create({
 			name: req.body.category,

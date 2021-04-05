@@ -2,11 +2,11 @@
 	<div>
 		<header>
 			<h1 v-html="getActiveCategory.label" />
-			<Popup move_to_body="true" name="edit_category" title="Click here to edit the category.">
+			<Popup @click="forceUpdate" move_to_body="true" name="edit_category" title="Click here to edit the category.">
 				<template v-slot:trigger>
 					<unicon name="pen" fill="#000000"></unicon>
 				</template>
-				<EditCategory />
+				<EditCategory :key="componentKey" />
 			</Popup>
 			<Popup move_to_body="true" name="delete_category" title="Click here to delete this category.">
 				<template v-slot:trigger>
@@ -28,6 +28,11 @@
 	import Snippet from '@/components/UI/Snippet';
 
 	export default {
+		data() {
+			return {
+				componentKey: 0
+			}
+		},
 		components: {
 			Popup,
 			DeleteCategory,
@@ -44,6 +49,11 @@
 		},
 		async mounted() {
 			await this.$store.dispatch('fetchSnippetsInCategory', this.$store.getters['getActiveCategory'].id);
+		},
+		methods: {
+			forceUpdate() {
+				this.componentKey += 1;
+			}
 		}
 	}
 </script>

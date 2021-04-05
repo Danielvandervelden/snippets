@@ -25,9 +25,9 @@ Vue.use(Helpers);
 
 /* Vue Unicons */
 import Unicon from 'vue-unicons';
-import { uniTrashAlt, uniCopy, uniPen } from 'vue-unicons/src/icons'
+import { uniTrashAlt, uniCopy, uniPen, uniTimes } from 'vue-unicons/src/icons'
 
-Unicon.add([uniTrashAlt, uniCopy, uniPen])
+Unicon.add([uniTrashAlt, uniCopy, uniPen, uniTimes])
 Vue.use(Unicon);
 
 Vue.config.productionTip = false

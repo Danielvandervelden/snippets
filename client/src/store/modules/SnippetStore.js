@@ -65,8 +65,8 @@ const SnippetStore = {
 				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/update/category`, {
 					...newCategoryObject
 				});
-
-				commit('setActiveCategory', response.data);
+				
+				commit('setActiveCategory', JSON.parse(response.data.message));
 				dispatch('fetchCategories');
 				return response;
 			} catch(err) {
@@ -97,13 +97,11 @@ const SnippetStore = {
 					dispatch('fetchSnippetsInCategory', getters['getActiveCategory'].id);
 				}
 
-				const count = await dispatch('editSnippetCountInCategory', {
+				await dispatch('editSnippetCountInCategory', {
 					action: '+',
 					amount: 1,
 					category: Number(snippetObject.snippet_category)
 				})
-
-				console.log(count);
 
 				return response;
 			} catch(err) {
@@ -139,7 +137,8 @@ const SnippetStore = {
 			try {
 				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/update/snippet_count_in_category`, modifications)
 
-				console.log(response);
+				return response;
+
 			} catch(err) {
 				console.log("Error in editSnippetCountInCategory", + err);
 				return err;

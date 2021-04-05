@@ -130,7 +130,7 @@ h3 {
 	&-wrapper {
 		background-color: #FFF;
 		border-radius: 10px;
-		padding: 20px;
+		padding: 35px 20px 20px;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -138,6 +138,12 @@ h3 {
 		width: 60vw;
 		max-width: 600px;
 		min-width: 300px;
+
+		.close-popup {
+			position: absolute;
+			top: 5px;
+			right: 10px;
+		}
 	}
 
 	&.popup-active {

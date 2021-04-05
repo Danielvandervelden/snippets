@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const defaultState = () => ({
 	user: null,
-	user_email: null
+	loggedIn: false
 })
 
 const UserState = {
@@ -10,12 +10,15 @@ const UserState = {
 	getters: {
 		getUser: state => {
 			return state.user;
+		},
+		loggedIn: state => {
+			return state.loggedIn
 		}
 	},
 	mutations: {
 		setUser(state, userObject) {
-			state.user = userObject.username;
-			state.user_email = userObject.email;
+			state.user = userObject;
+			state.loggedIn = true;
 		},
 
 		resetUserStore(state) {
@@ -23,9 +26,14 @@ const UserState = {
 		}
 	},
 	actions: {
-		async loginHandler(context, user) {
+		async loginHandler({ dispatch }, user) {
 			try {
 				const fetchedUser = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/login`, { username: user.user, password: user.pass })
+				
+				if(fetchedUser.data.code == 200) {
+					dispatch('fetchCategories');
+				}
+
 				return fetchedUser.data;
 			} catch(err) {
 				return err.response;

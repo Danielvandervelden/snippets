@@ -11,7 +11,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store)
 const db = require('./database/db');
 const routes = require('./routes/routes');
 
-db.sync({force: true})
+db.sync()
 	.then(res => {
 		console.log("Sync successful!")
 	})

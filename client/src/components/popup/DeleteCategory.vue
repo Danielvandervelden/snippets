@@ -20,9 +20,9 @@
 
 				try {
 					await this.$store.dispatch('deleteCategory', this.$store.getters['getActiveCategory']);
-					this.$router.push(`/${this.$store.getters['getUser']}`)
+					this.$router.push(`/${this.$store.getters['getUser'].username}`)
 				} catch(err) {
-					console.log(err);
+					console.log(err, 'ERROR IN DELETE CATEGORY');
 				}
 			}
 		}

@@ -48,24 +48,28 @@ exports.register = async (req, res) => {
 
 	/* Otherwise, salt the password and store all the info in the database. */
 	const salt = 10;
-	bcrypt.hash(user.password, salt).then(hash => {
-			return User.create({
-				username: user.username,
-				email: user.email,
-				password: hash
-			})
-		}).then(() => {
-			return res.status(200).send({
-				message: "User has been successfully created, logging you in instantly...",
-				code: "success"
-			})
+
+	const hashPassword = await bcrypt.hash(user.password, salt);
+
+	try {
+		const createdUser = await User.create({
+			username: user.username,
+			email: user.email,
+			password: hashPassword
 		})
-		.catch(err => {
-			return res.status(500).send({
-				message: "Something went wrong on the server, please try again later",
-				code: "server_error"
-			});
+
+		return res.status(200).send({
+			message: "User has been successfully created, logging you in instantly...",
+			code: "success"
 		})
+	} catch(err) {
+		console.log(err);
+		return res.status(500).send({
+			message: "Something went wrong on the server, please try again later",
+			code: "server_error",
+			error: err
+		});
+	}
 }
 
 exports.login = async (req, res) => {
@@ -81,12 +85,8 @@ exports.login = async (req, res) => {
 		})
 	}
 
-	/* Let's see if the user, whether it's a username or email address, exists */
-	const email = user.username.indexOf(/@/) === -1 ? false : true;
-
 	/* Then we find the user in the database, depending on if it's an email or username we search in different columns */
-
-	let fetchedUser = await User.findOne({
+	const fetchedUser = await User.findOne({
 		where: {
 			[Op.or]: [
 				{
@@ -99,7 +99,6 @@ exports.login = async (req, res) => {
 		}
 	});
 
-	/* Can't find the user.... */
 	if(!fetchedUser) {
 		return res.status(500).send({
 			message: "User/password combination is not correct.",
@@ -108,9 +107,15 @@ exports.login = async (req, res) => {
 	}
 
 	/* Apparently we found a user, now we are going to check the passwords. */
-	const match = await bcrypt.compare(user.password, fetchedUser.password);
+	try {
+		await bcrypt.compare(user.password, fetchedUser.password);
 
-	if(match) {
+		const returnedUser = {
+			username: fetchedUser.username,
+			email: fetchedUser.email,
+			id: fetchedUser.id
+		}
+
 		req.session.email = fetchedUser.email;
 		req.session.user = fetchedUser.username;
 		req.session.user_id = fetchedUser.id;
@@ -118,11 +123,11 @@ exports.login = async (req, res) => {
 		return res.status(200).send({
 			code: 200,
 			message: "Gothu fam, logging you in...",
-			username: fetchedUser.username,
-			email: fetchedUser.email,
-			user_id: fetchedUser.id
-		});
-	} else {
+			user: returnedUser
+		})
+	}
+	catch(err) {
+		console.log(err);
 		req.session.destroy();
 		return res.status(401).send({
 			message: "User/password combination is not correct.",
@@ -136,8 +141,11 @@ exports.auth = (req, res) => {
 		return res.status(200).send({
 			code: 200,
 			message: "Succesfully authorized",
-			user: req.session.user,
-			email: req.session.email
+			user: {
+				username: req.session.user,
+				email: req.session.email,
+				id: req.session.user_id
+			}
 		})
 	} else {
 		return res.status(200).send({

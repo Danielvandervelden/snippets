@@ -59,12 +59,12 @@
 
 				if(response.status === 200) {
 					const loginResponse = await this.$store.dispatch('loginHandler', { user: this.user.username, pass: this.user.password });
-					this.$store.commit('setUser', { username: loginResponse.username, email: loginResponse.email });
-					this.$store.dispatch('fetchCategories');
+					this.$store.commit('setUser', loginResponse.user);
+					await this.$store.dispatch('fetchCategories');
 					this.$helpers.message(document.querySelector('.form-wrapper'), response.message, 'success');
-					setTimeout(() => {
-						this.$router.push(`/${this.$store.getters['getUser']}`);
-					}, 1000)
+					setTimeout(function() {
+						this.$router.push(`/${this.$store.getters['getUser'].username}`);
+					}.bind(this), 1000)
 				} else {
 					if(response.data.code === "duplicate_username") {
 						this.$helpers.message(document.getElementById('username'), "This username already exists, please try a different one.");
