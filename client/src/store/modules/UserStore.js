@@ -45,7 +45,7 @@ const UserState = {
 			commit('resetSnippetState', null, { root: true });
 			commit('resetDashboardState', null, { root: true });
 
-			window.localStorage.removeItem('vuex');
+			window.localStorage.clear();
 
 			const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/logout`);
 			

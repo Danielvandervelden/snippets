@@ -47,7 +47,7 @@ const SnippetStore = {
 				return true
 				
 			} catch(err) {
-				console.log(err.reponse);
+				console.log(err.reponse, "ERROR IN ADD CATEGORY HANDLER");
 				return false;
 			}
 		},

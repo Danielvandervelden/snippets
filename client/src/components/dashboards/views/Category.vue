@@ -2,13 +2,13 @@
 	<div>
 		<header>
 			<h1 v-html="getActiveCategory.label" />
-			<Popup @click="forceUpdate" move_to_body="true" name="edit_category" title="Click here to edit the category.">
+			<Popup @click="forceUpdate" move_to_body name="edit_category" title="Click here to edit the category.">
 				<template v-slot:trigger>
 					<unicon name="pen" fill="#000000"></unicon>
 				</template>
 				<EditCategory :key="componentKey" />
 			</Popup>
-			<Popup move_to_body="true" name="delete_category" title="Click here to delete this category.">
+			<Popup move_to_body name="delete_category" title="Click here to delete this category.">
 				<template v-slot:trigger>
 					<unicon name="trash-alt" fill="#D1495B"></unicon>
 				</template>
@@ -23,8 +23,8 @@
 
 <script>
 	import Popup from '@/components/UI/Popup';
-	import DeleteCategory from '@/components/popup/DeleteCategory';
-	import EditCategory from '@/components/popup/EditCategory';
+	import DeleteCategory from '@/components/popup/Category/DeleteCategory';
+	import EditCategory from '@/components/popup/Category/EditCategory';
 	import Snippet from '@/components/UI/Snippet';
 
 	export default {

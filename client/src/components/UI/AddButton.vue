@@ -7,12 +7,12 @@
 		<div id="add-button-popup">
 			<ul>
 				<li @click="forceUpdate" class="new-category">
-					<Popup move_to_body="true" name="new_category" label="New category" title="Add a new category">
+					<Popup move_to_body name="new_category" label="New category" title="Add a new category">
 						<NewCategory :key="componentKey" />
 					</Popup>
 				</li>
 				<li @click="forceUpdate" id="hover_snippet_info" class="new-snippet">
-					<Popup move_to_body="true" :class="getCategories ? '' : 'disabled'" name="new_snippet" label="New snippet" title="Add a new snippet">
+					<Popup move_to_body :class="getCategories ? '' : 'disabled'" name="new_snippet" label="New snippet" title="Add a new snippet">
 						<NewSnippet :key="componentKey" />
 					</Popup>
 					<HoverInfo name="snippet_info" location="bottom" v-if="!getCategories">
@@ -26,8 +26,8 @@
 
 <script>
 import Popup from '@/components/UI/Popup.vue';
-import NewCategory from '@/components/popup/NewCategory.vue';
-import NewSnippet from '@/components/popup/NewSnippet.vue';
+import NewCategory from '@/components/popup/Category/NewCategory.vue';
+import NewSnippet from '@/components/popup/Snippet/NewSnippet.vue';
 import HoverInfo from '@/components/UI/HoverInfo.vue';
 import { Eventbus } from '@/plugins/event-bus.js';
 

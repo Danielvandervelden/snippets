@@ -13,7 +13,15 @@
 
 <script>
 	export default {
-		props: ['name', 'label', 'title', 'move_to_body'],
+		props: {
+			name: String,
+			label: String,
+			title: String,
+			move_to_body: {
+				type: Boolean,
+				defaultValue: false
+			}
+		},
 		mounted() {
 			/* Add an event listener to close the popup on a click on the before */
 			this.$el.querySelector('.popup').addEventListener('click', e => {
@@ -22,7 +30,7 @@
 				}
 			});
 
-			if(this.move_to_body === "true") {
+			if(this.move_to_body) {
 				document.body.appendChild(this.$el.querySelector('.popup'));
 			}
 		},

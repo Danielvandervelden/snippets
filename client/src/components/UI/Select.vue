@@ -2,8 +2,8 @@
 	<div class="select-wrapper">
 		<label v-if="label" :for="name">{{label}}</label>
 		<select :value="value" @change="$emit('input', $event.target.value)">
-			<option selected disabled value="null">- Select a category</option>
-			<option :name="name" v-for="option in options" :key="option.value" :value="option.value">{{option.label}}</option>
+			<option selected disabled value="null">- Select an option</option>
+			<option :name="name" v-for="option in options" :key="option.value" :selected="isSelected(option.value)" :value="option.value">{{option.label}}</option>
 		</select>
 	</div>
 </template>
@@ -13,11 +13,21 @@
 		props: {
 			options: Array,
 			name: String,
-			label: String
+			label: String,
+			selectedValue: String
 		},
 		data() {
 			return {
 				value: null
+			}
+		},
+		methods: {
+			isSelected(value) {
+				if(!this.selectedValue) {
+					return false
+				} else if(value.toString() === this.selectedValue) {
+					return true
+				}
 			}
 		}
 	}
