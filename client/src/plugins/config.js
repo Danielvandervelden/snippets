@@ -1,5 +1,5 @@
 const config = {
-	base_url: `${process.env.VUE_API_HOST}:${process.env.VUE_API_PORT}`
+	base_url: `${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`
 }
 
 export default {

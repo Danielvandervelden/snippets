@@ -28,7 +28,7 @@ const UserState = {
 	actions: {
 		async loginHandler({ dispatch }, user) {
 			try {
-				const fetchedUser = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/login`, { username: user.user, password: user.pass })
+				const fetchedUser = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/user/login`, { username: user.user, password: user.pass })
 				
 				if(fetchedUser.data.code == 200) {
 					dispatch('fetchCategories');
@@ -47,21 +47,21 @@ const UserState = {
 
 			window.localStorage.clear();
 
-			const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/logout`);
+			const response = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/user/logout`);
 			
 			return response;
 		},
 
 		async auth() {
 			try {
-				return await axios.get(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/auth`)
+				return await axios.get(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/user/auth`)
 			} catch(err) {
 				return err.response;
 			}
 		},
 		async registrationHandler(context, user) {
 			try {
-				return await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/user/register`, {
+				return await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/user/register`, {
 					...user
 				});
 

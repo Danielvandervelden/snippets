@@ -40,7 +40,7 @@ const SnippetStore = {
 	actions: {
 		async addCategoryHandler({dispatch}, categoryName) {
 			try {
-				await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/add/category`, {
+				await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/add/category`, {
 					category: categoryName
 				});
 				dispatch('fetchCategories');
@@ -53,7 +53,7 @@ const SnippetStore = {
 		},
 		async fetchCategories({commit}) {
 			try {
-				const categories = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/get/categories`);
+				const categories = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/get/categories`);
 				commit('setCategories', JSON.parse(categories.data.data));
 			} catch(err) {
 				console.log(err, 'Error while fetching categories.');
@@ -62,7 +62,7 @@ const SnippetStore = {
 
 		async editCategory({commit, dispatch}, newCategoryObject) {
 			try {
-				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/update/category`, {
+				const response = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/update/category`, {
 					...newCategoryObject
 				});
 				
@@ -76,7 +76,7 @@ const SnippetStore = {
 
 		async deleteCategory({dispatch}, categoryObject) {
 			try {
-				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/delete/category`, {
+				const response = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/delete/category`, {
 					...categoryObject
 				})
 
@@ -89,7 +89,7 @@ const SnippetStore = {
 
 		async saveSnippetHandler({dispatch, getters}, snippetObject) {
 			try {
-				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/add/snippet`, {
+				const response = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/add/snippet`, {
 					...snippetObject
 				});
 
@@ -110,7 +110,7 @@ const SnippetStore = {
 		},
 		async fetchSnippetsInCategory({commit}, category_id) {
 			try {
-				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/get/snippets`, {
+				const response = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/get/snippets`, {
 					category_id: category_id
 				});
 				commit('setActiveCategorySnippets', response.data.data);
@@ -135,7 +135,7 @@ const SnippetStore = {
 			if(!modifications.category || typeof(modifications.category) !== 'number') return 'category value of modifications object is either not filled in or of type Number'
 
 			try {
-				const response = await axios.post(`${process.env.VUE_APP_API}:${process.env.VUE_APP_PORT}/api/update/snippet_count_in_category`, modifications)
+				const response = await axios.post(`${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/update/snippet_count_in_category`, modifications)
 
 				return response;
 

@@ -3,7 +3,6 @@ const Snippet = require('../models/snippet');
 const User = require('../models/user');
 
 exports.category = async (req, res) => {
-	console.log(req.session.user, 'USERJIOESRJIEOSPIJOR');
 	if(req.session.user) {
 		return Category.create({
 			name: req.body.category,
@@ -38,6 +37,13 @@ exports.snippet = (req, res) => {
 				code: 200,
 				message: "Successfully created snippet and stored in database",
 				category: req.body.snippet_name
+			})
+		})
+		.catch(e => {
+			return res.status(400).send({
+				code: 400,
+				message: "Something went wrong...",
+				error: e
 			})
 		})
 	} else {

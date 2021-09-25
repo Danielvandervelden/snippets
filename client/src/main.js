@@ -24,8 +24,8 @@ import Helpers from './plugins/helpers';
 Vue.use(Helpers);
 
 /* Vue Unicons */
-import Unicon from 'vue-unicons';
-import { uniTrashAlt, uniCopy, uniPen, uniTimes } from 'vue-unicons/src/icons'
+import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd';
+import { uniTrashAlt, uniCopy, uniPen, uniTimes } from 'vue-unicons/dist/icons';
 
 Unicon.add([uniTrashAlt, uniCopy, uniPen, uniTimes])
 Vue.use(Unicon);

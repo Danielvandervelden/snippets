@@ -99,25 +99,25 @@
 		[class*="icon"] {
 			cursor: pointer;
 
-			/deep/ svg {
+			::v-deep svg {
 				transition: all .2s ease-in-out;
 			}
 		}
 
 		.delete-icon {
-			&:hover /deep/ svg {
+			&:hover ::v-deep svg {
 				fill: $red;
 			}
 		}
 
 		.edit-icon {
-			&:hover /deep/ svg {
+			&:hover ::v-deep svg {
 				fill: $blue;
 			}
 		}
 
 		.copy-icon {
-			&:hover /deep/ svg {
+			&:hover ::v-deep svg {
 				fill: $purple;
 			}
 		}

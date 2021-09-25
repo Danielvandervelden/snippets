@@ -136,7 +136,7 @@ import { Eventbus } from '@/plugins/event-bus.js';
 			right: 10px;
 		}
 
-		/deep/ ul {
+		::v-deep ul {
 			list-style: none;
 			padding: 10px;	
 			margin: 0;
